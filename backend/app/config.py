@@ -2,27 +2,32 @@ from pydantic_settings import BaseSettings
 from functools import lru_cache
 
 class Settings(BaseSettings):
-    # Database
-    DB_HOST: str = "localhost"
-    DB_PORT: int = 3306
-    DB_USER: str = "gym_user"
+    # ── Database ──────────────────────────────────────────────────────────────
+    DB_HOST:     str = "localhost"
+    DB_PORT:     int = 3306
+    DB_USER:     str = "gym_user"
     DB_PASSWORD: str = "gym_password"
-    DB_NAME: str = "smart_gym"
+    DB_NAME:     str = "smart_gym"
     DATABASE_URL: str = ""
 
-    # JWT
-    SECRET_KEY: str = "your-super-secret-key-change-in-production"
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 24 hours
+    # ── JWT ───────────────────────────────────────────────────────────────────
+    SECRET_KEY:                  str = "your-super-secret-key-change-in-production"
+    ALGORITHM:                   str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
 
-    # ─── Razorpay ─────────────────────────────────────────────────────────────────
-    RAZORPAY_KEY_ID: str = ""
+    # ── Razorpay ──────────────────────────────────────────────────────────────
+    RAZORPAY_KEY_ID:     str = ""
     RAZORPAY_KEY_SECRET: str = ""
 
-    # App
-    APP_NAME: str = "Smart Gym Platform"
-    DEBUG: bool = False
-    API_V1_STR: str = "/api"
+    # ── Email (Gmail SMTP) ────────────────────────────────────────────────────
+    MAIL_USERNAME: str = ""   # your Gmail address
+    MAIL_PASSWORD: str = ""   # Gmail App Password (not your login password!)
+    MAIL_FROM:     str = ""   # same as MAIL_USERNAME
+
+    # ── App ───────────────────────────────────────────────────────────────────
+    APP_NAME:    str  = "Smart Gym Platform"
+    DEBUG:       bool = False
+    API_V1_STR:  str  = "/api"
 
     class Config:
         env_file = ".env"
@@ -34,6 +39,8 @@ class Settings(BaseSettings):
                 f"mysql+pymysql://{self.DB_USER}:{self.DB_PASSWORD}"
                 f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
             )
+        if not self.MAIL_FROM:
+            self.MAIL_FROM = self.MAIL_USERNAME
 
 @lru_cache()
 def get_settings():

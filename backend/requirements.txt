@@ -16,3 +16,7 @@ joblib
 python-multipart
 httpx
 alembic
+fastapi-mail
+python-dotenv
+jinja2
+aiosmtplib

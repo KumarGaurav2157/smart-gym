@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Dumbbell, BarChart3, Brain, Users,
   UserCheck, User, TrendingUp, LogOut, Bell,
   CalendarDays, Flame, Moon, Droplets, Trophy,
-  CreditCard, Menu, X, ChevronRight
+  CreditCard, Menu, X, ChevronRight, KeyRound
 } from 'lucide-react';
 import useAuthStore from '../../hooks/useAuthStore';
 import toast from 'react-hot-toast';
@@ -22,6 +22,7 @@ const memberNav = [
   { to: '/membership',      icon: <CreditCard size={18} />,      label: 'Membership'       },
   { to: '/trainers',        icon: <UserCheck size={18} />,       label: 'Trainers'         },
   { to: '/profile',         icon: <User size={18} />,            label: 'Profile'          },
+  { to: '/change-password', icon: <KeyRound size={18} />,       label: 'Change Password'  },
 ];
 
 const adminNav = [

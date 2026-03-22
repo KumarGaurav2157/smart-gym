@@ -79,6 +79,9 @@ export default function LoginPage() {
         <p style={{ marginTop: 24, textAlign: 'center', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
           New member? <Link to="/register">Create account</Link>
         </p>
+        <p style={{ marginTop: 12, textAlign: 'center', fontSize: '0.875rem' }}>
+          <Link to="/forgot-password" style={{ color: 'var(--text-muted)' }}>Forgot your password?</Link>
+        </p>
 
         <div style={{ marginTop: 32, padding: 16, background: 'var(--bg-card)', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
           <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: 8, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Demo Credentials</p>
