@@ -78,3 +78,68 @@ def dashboard_data(db: Session = Depends(get_db), admin: User = Depends(require_
             {"segment": "VIP", "count": 5},
         ],
     }
+@router.get("/leaderboard")
+def get_leaderboard(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    from app.models.models import Workout, Attendance
+    from sqlalchemy import func
+    from datetime import datetime, timedelta
+
+    thirty_ago = datetime.utcnow() - timedelta(days=30)
+
+    # Get all active members
+    members = db.query(User).filter(User.membership_status == "active").all()
+
+    leaderboard = []
+    for member in members:
+        # Calories burned this month
+        calories = db.query(func.sum(Workout.calories_burned)).filter(
+            Workout.user_id == member.id,
+            Workout.created_at >= thirty_ago
+        ).scalar() or 0
+
+        # Workout count this month
+        workout_count = db.query(func.count(Workout.id)).filter(
+            Workout.user_id == member.id,
+            Workout.created_at >= thirty_ago
+        ).scalar() or 0
+
+        # Attendance this month
+        attendance_count = db.query(func.count(Attendance.id)).filter(
+            Attendance.user_id == member.id,
+            Attendance.check_in >= thirty_ago
+        ).scalar() or 0
+
+        # Calculate streak
+        all_workouts = db.query(Workout.created_at).filter(
+            Workout.user_id == member.id
+        ).order_by(Workout.created_at.desc()).all()
+
+        streak = 0
+        if all_workouts:
+            workout_dates = set()
+            for w in all_workouts:
+                if w.created_at:
+                    d = w.created_at.date()
+                    workout_dates.add(d)
+
+            from datetime import date, timedelta as td
+            today = date.today()
+            for i in range(365):
+                check = today - td(days=i)
+                if check in workout_dates:
+                    streak += 1
+                elif i > 0:
+                    break
+
+        leaderboard.append({
+            "id":            member.id,
+            "full_name":     member.full_name,
+            "goal":          member.goal.value if member.goal else "general_fitness",
+            "calories":      round(float(calories), 0),
+            "workouts":      workout_count,
+            "attendance":    attendance_count,
+            "streak":        streak,
+            "is_me":         member.id == current_user.id,
+        })
+
+    return leaderboard

@@ -2,7 +2,8 @@ import React from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Dumbbell, BarChart3, Brain, Users,
-  UserCheck, User, TrendingUp, LogOut, Bell, Search, CalendarDays
+  UserCheck, User, TrendingUp, LogOut, Bell, Search,
+  CalendarDays, Flame, Weight, Moon, Droplets, Trophy
 } from 'lucide-react';
 import useAuthStore from '../../hooks/useAuthStore';
 import toast from 'react-hot-toast';
@@ -11,6 +12,11 @@ const memberNav = [
   { to: '/dashboard',       icon: <LayoutDashboard size={16} />, label: 'Dashboard'        },
   { to: '/workouts',        icon: <Dumbbell size={16} />,        label: 'Workouts'          },
   { to: '/calendar',        icon: <CalendarDays size={16} />,    label: 'Calorie Calendar'  },
+  { to: '/streak',          icon: <Flame size={16} />,           label: 'Streak'            },
+  { to: '/weight',          icon: <TrendingUp size={16} />,      label: 'Weight Progress'   },
+  { to: '/sleep',           icon: <Moon size={16} />,            label: 'Sleep Tracker'     },
+  { to: '/water',           icon: <Droplets size={16} />,        label: 'Water Tracker'     },
+  { to: '/leaderboard',     icon: <Trophy size={16} />,          label: 'Leaderboard'       },
   { to: '/recommendations', icon: <Brain size={16} />,           label: 'AI Plan'           },
   { to: '/trainers',        icon: <UserCheck size={16} />,       label: 'Trainers'          },
   { to: '/profile',         icon: <User size={16} />,            label: 'Profile'           },
@@ -36,7 +42,6 @@ export default function AppShell() {
 
   return (
     <div className="app-shell">
-      {/* ── Sidebar ── */}
       <aside className="sidebar">
         <div className="sidebar-logo">
           <div className="sidebar-logo-mark">S</div>
@@ -78,7 +83,6 @@ export default function AppShell() {
         </div>
       </aside>
 
-      {/* ── Topbar ── */}
       <header className="topbar">
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <Search size={16} color="var(--text-muted)" />
@@ -96,7 +100,6 @@ export default function AppShell() {
         </div>
       </header>
 
-      {/* ── Page content ── */}
       <main className="main-content">
         <Outlet />
       </main>

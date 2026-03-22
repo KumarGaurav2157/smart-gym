@@ -14,6 +14,11 @@ import TrainersPage from './pages/TrainersPage';
 import ProfilePage from './pages/ProfilePage';
 import ForecastPage from './pages/ForecastPage';
 import CalendarPage from './pages/CalendarPage';
+import StreakPage from './pages/StreakPage';
+import WeightPage from './pages/WeightPage';
+import SleepPage from './pages/SleepPage';
+import WaterPage from './pages/WaterPage';
+import LeaderboardPage from './pages/LeaderboardPage';
 
 function PrivateRoute({ children, adminOnly = false }) {
   const { user, token } = useAuthStore();
@@ -52,6 +57,11 @@ export default function App() {
           <Route path="trainers"        element={<TrainersPage />} />
           <Route path="profile"         element={<ProfilePage />} />
           <Route path="calendar"        element={<CalendarPage />} />
+          <Route path="streak"          element={<StreakPage />} />
+          <Route path="weight"          element={<WeightPage />} />
+          <Route path="sleep"           element={<SleepPage />} />
+          <Route path="water"           element={<WaterPage />} />
+          <Route path="leaderboard"     element={<LeaderboardPage />} />
           <Route path="analytics"       element={<PrivateRoute adminOnly><AnalyticsPage /></PrivateRoute>} />
           <Route path="members"         element={<PrivateRoute adminOnly><MembersPage /></PrivateRoute>} />
           <Route path="forecast"        element={<PrivateRoute adminOnly><ForecastPage /></PrivateRoute>} />

@@ -50,6 +50,8 @@ export const membersAPI = {
 // ─── Analytics ────────────────────────────────────────────────────────────────
 export const analyticsAPI = {
   dashboard: () => api.get('/analytics/get-dashboard-data'),
+  leaderboard: () => api.get('/analytics/leaderboard'),
+
 };
 
 // ─── Predictions ──────────────────────────────────────────────────────────────
