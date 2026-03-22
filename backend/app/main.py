@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth, members, workouts, analytics, predictions, recommendations, trainers, payments
+from app.api import auth, members, workouts, analytics, predictions, recommendations, trainers, payments, membership
 from app.database import engine, Base
 
 Base.metadata.create_all(bind=engine)
@@ -27,6 +27,7 @@ app.include_router(predictions.router,     prefix="/api/predictions",     tags=[
 app.include_router(recommendations.router, prefix="/api/recommendations", tags=["Recommendations"])
 app.include_router(trainers.router,        prefix="/api/trainers",        tags=["Trainers"])
 app.include_router(payments.router,        prefix="/api/payments",        tags=["Payments"])
+app.include_router(membership.router,      prefix="/api/membership",      tags=["Membership"])
 
 @app.get("/")
 def root():

@@ -3,7 +3,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Dumbbell, BarChart3, Brain, Users,
   UserCheck, User, TrendingUp, LogOut, Bell, Search,
-  CalendarDays, Flame, Weight, Moon, Droplets, Trophy
+  CalendarDays, Flame, Moon, Droplets, Trophy, CreditCard
 } from 'lucide-react';
 import useAuthStore from '../../hooks/useAuthStore';
 import toast from 'react-hot-toast';
@@ -18,14 +18,19 @@ const memberNav = [
   { to: '/water',           icon: <Droplets size={16} />,        label: 'Water Tracker'     },
   { to: '/leaderboard',     icon: <Trophy size={16} />,          label: 'Leaderboard'       },
   { to: '/recommendations', icon: <Brain size={16} />,           label: 'AI Plan'           },
+  { to: '/membership',      icon: <CreditCard size={16} />,      label: 'Membership'        },
   { to: '/trainers',        icon: <UserCheck size={16} />,       label: 'Trainers'          },
   { to: '/profile',         icon: <User size={16} />,            label: 'Profile'           },
 ];
 
 const adminNav = [
-  { to: '/analytics', icon: <BarChart3 size={16} />,   label: 'Analytics'  },
-  { to: '/members',   icon: <Users size={16} />,        label: 'Members'    },
-  { to: '/forecast',  icon: <TrendingUp size={16} />,   label: 'Forecast'   },
+  { to: '/analytics', icon: <BarChart3 size={16} />,  label: 'Analytics' },
+  { to: '/members',   icon: <Users size={16} />,       label: 'Members'   },
+  { to: '/forecast',  icon: <TrendingUp size={16} />,  label: 'Forecast'  },
+];
+
+const trainerNav = [
+  { to: '/trainer-dashboard', icon: <UserCheck size={16} />, label: 'My Members' },
 ];
 
 export default function AppShell() {
@@ -55,6 +60,17 @@ export default function AppShell() {
               {icon}{label}
             </NavLink>
           ))}
+
+          {user?.role === 'trainer' && (
+            <>
+              <div className="nav-section-label">Trainer</div>
+              {trainerNav.map(({ to, icon, label }) => (
+                <NavLink key={to} to={to} className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
+                  {icon}{label}
+                </NavLink>
+              ))}
+            </>
+          )}
 
           {user?.role === 'admin' && (
             <>

@@ -70,6 +70,8 @@ export const recommendationsAPI = {
 export const trainersAPI = {
   list: () => api.get('/trainers/'),
   get:  (id) => api.get(`/trainers/${id}`),
+  members:       (id) => api.get(`/trainers/${id}/members`),
+  myDashboard:   ()   => api.get('/trainers/my/dashboard'),
 };
 
 // ─── Payments ─────────────────────────────────────────────────────────────────

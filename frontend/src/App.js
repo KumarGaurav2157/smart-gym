@@ -19,6 +19,8 @@ import WeightPage from './pages/WeightPage';
 import SleepPage from './pages/SleepPage';
 import WaterPage from './pages/WaterPage';
 import LeaderboardPage from './pages/LeaderboardPage';
+import TrainerDashboardPage from './pages/TrainerDashboardPage';
+import MembershipPage from './pages/MembershipPage';
 
 function PrivateRoute({ children, adminOnly = false }) {
   const { user, token } = useAuthStore();
@@ -51,20 +53,22 @@ export default function App() {
         <Route path="/register" element={token ? <Navigate to="/dashboard" /> : <RegisterPage />} />
         <Route path="/" element={<PrivateRoute><AppShell /></PrivateRoute>}>
           <Route index element={<Navigate to="/dashboard" replace />} />
-          <Route path="dashboard"       element={<DashboardPage />} />
-          <Route path="workouts"        element={<WorkoutsPage />} />
-          <Route path="recommendations" element={<RecommendationsPage />} />
-          <Route path="trainers"        element={<TrainersPage />} />
-          <Route path="profile"         element={<ProfilePage />} />
-          <Route path="calendar"        element={<CalendarPage />} />
-          <Route path="streak"          element={<StreakPage />} />
-          <Route path="weight"          element={<WeightPage />} />
-          <Route path="sleep"           element={<SleepPage />} />
-          <Route path="water"           element={<WaterPage />} />
-          <Route path="leaderboard"     element={<LeaderboardPage />} />
-          <Route path="analytics"       element={<PrivateRoute adminOnly><AnalyticsPage /></PrivateRoute>} />
-          <Route path="members"         element={<PrivateRoute adminOnly><MembersPage /></PrivateRoute>} />
-          <Route path="forecast"        element={<PrivateRoute adminOnly><ForecastPage /></PrivateRoute>} />
+          <Route path="dashboard"          element={<DashboardPage />} />
+          <Route path="workouts"           element={<WorkoutsPage />} />
+          <Route path="recommendations"    element={<RecommendationsPage />} />
+          <Route path="trainers"           element={<TrainersPage />} />
+          <Route path="profile"            element={<ProfilePage />} />
+          <Route path="calendar"           element={<CalendarPage />} />
+          <Route path="streak"             element={<StreakPage />} />
+          <Route path="weight"             element={<WeightPage />} />
+          <Route path="sleep"              element={<SleepPage />} />
+          <Route path="water"              element={<WaterPage />} />
+          <Route path="leaderboard"        element={<LeaderboardPage />} />
+          <Route path="membership"         element={<MembershipPage />} />
+          <Route path="trainer-dashboard"  element={<TrainerDashboardPage />} />
+          <Route path="analytics"          element={<PrivateRoute adminOnly><AnalyticsPage /></PrivateRoute>} />
+          <Route path="members"            element={<PrivateRoute adminOnly><MembersPage /></PrivateRoute>} />
+          <Route path="forecast"           element={<PrivateRoute adminOnly><ForecastPage /></PrivateRoute>} />
         </Route>
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
