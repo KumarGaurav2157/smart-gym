@@ -438,3 +438,197 @@ tbody tr:last-child td { border-bottom: none; }
   border: 1px solid var(--border-light) !important;
   border-radius: var(--radius) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* MOBILE RESPONSIVE STYLES                                                   */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Nav arrow (hidden by default) ─────────────────────────────────────── */
+.nav-arrow { margin-left: auto; opacity: 0; transition: opacity var(--transition); }
+.nav-item:hover .nav-arrow { opacity: 0.4; }
+.nav-item.active .nav-arrow { opacity: 0.6; }
+
+/* ─── Mobile sidebar ─────────────────────────────────────────────────────── */
+.mobile-sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  width: 280px;
+  z-index: 999;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: none;
+}
+.mobile-sidebar.open { transform: translateX(0); }
+
+/* ─── Mobile bottom nav ──────────────────────────────────────────────────── */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  z-index: 100;
+  padding: 4px 0 env(safe-area-inset-bottom, 4px);
+}
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  flex: 1;
+  padding: 8px 4px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--transition);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.bottom-nav-item span { font-size: 0.6rem; }
+.bottom-nav-item:hover { color: var(--text-primary); }
+.bottom-nav-item.active { color: var(--accent); }
+.bottom-nav-item.active svg { filter: drop-shadow(0 0 6px var(--accent)); }
+
+/* ─── Responsive breakpoints ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Hide desktop sidebar */
+  .desktop-sidebar { display: none !important; }
+
+  /* Show mobile sidebar */
+  .mobile-sidebar { display: flex !important; flex-direction: column; }
+
+  /* Show hamburger and mobile logo */
+  .hamburger-btn  { display: flex !important; }
+  .mobile-logo    { display: block !important; }
+  .desktop-search { display: none !important; }
+
+  /* Show bottom nav */
+  .mobile-bottom-nav {
+    display: flex !important;
+    align-items: stretch;
+  }
+
+  /* App shell - single column */
+  .app-shell {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 60px 1fr !important;
+  }
+
+  /* Topbar spans full width */
+  .topbar {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    padding: 0 16px !important;
+  }
+
+  /* Main content spans full width + bottom nav padding */
+  .main-content {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    padding: 20px 16px 90px !important; /* extra bottom for nav */
+    max-height: calc(100vh - 60px) !important;
+    overflow-y: auto !important;
+  }
+
+  /* Cards stack full width */
+  .grid-2, .grid-3, .grid-4, .grid-stat {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Stat cards smaller on mobile */
+  .stat-value { font-size: 2rem !important; }
+
+  /* Page title smaller */
+  .page-title { font-size: 1.8rem !important; }
+
+  /* Page header stack on mobile */
+  .page-header { flex-direction: column !important; align-items: flex-start !important; gap: 12px; }
+
+  /* Tables scroll horizontally */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { min-width: 500px; }
+
+  /* Auth pages single column */
+  .auth-page { grid-template-columns: 1fr !important; }
+  .auth-hero  { display: none !important; }
+  .auth-form-panel { padding: 32px 24px !important; }
+
+  /* Buttons full width on mobile forms */
+  .btn-mobile-full { width: 100% !important; justify-content: center !important; }
+
+  /* Modal full screen on mobile */
+  .modal-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 20px 20px 0 0 !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+  }
+
+  /* Membership plans single column */
+  .plans-grid { grid-template-columns: 1fr !important; }
+
+  /* Sidebar close button visible on mobile */
+  .mobile-close-btn { display: flex !important; }
+
+  /* Card padding smaller on mobile */
+  .card { padding: 16px !important; }
+
+  /* Hide date in topbar */
+  .topbar-date { display: none !important; }
+}
+
+@media (max-width: 480px) {
+  /* Extra small phones */
+  .main-content { padding: 16px 12px 90px !important; }
+  .page-title   { font-size: 1.5rem !important; }
+  .stat-value   { font-size: 1.6rem !important; }
+  .card         { padding: 14px !important; }
+
+  /* Bottom nav labels hidden on tiny screens */
+  .bottom-nav-item span { display: none; }
+  .bottom-nav-item { padding: 12px 4px; }
+}
+
+@media (min-width: 769px) {
+  /* Desktop - hide mobile elements */
+  .mobile-sidebar     { display: none !important; }
+  .mobile-bottom-nav  { display: none !important; }
+  .hamburger-btn      { display: none !important; }
+  .mobile-logo        { display: none !important; }
+  .mobile-close-btn   { display: none !important; }
+  .desktop-sidebar    { display: flex !important; flex-direction: column; }
+}
+
+/* ─── Smooth sidebar transition on mobile ────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-sidebar { transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+/* ─── Touch improvements ─────────────────────────────────────────────────── */
+@media (hover: none) {
+  .nav-item:hover   { background: transparent; }
+  .stat-card:hover  { border-color: var(--border); box-shadow: none; }
+  .btn:active       { opacity: 0.85; transform: scale(0.98); }
+}
+
+/* ─── Safe area for notched phones (iPhone X+) ───────────────────────────── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-bottom-nav {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 4px);
+  }
+  .main-content {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 90px) !important;
+  }
+}
