@@ -20,3 +20,4 @@ fastapi-mail
 python-dotenv
 jinja2
 aiosmtplib
+razorpay
