@@ -53,16 +53,22 @@ export default function MembershipPage() {
   const loadAll = useCallback(async () => {
     setLoading(true);
     try {
-      const [p, m, h, s] = await Promise.all([
+      const [p, m, h] = await Promise.all([
         api.get('/membership/plans'),
         api.get('/membership/my-membership').catch(() => ({ data: null })),
         api.get('/membership/payment-history').catch(() => ({ data: [] })),
-        api.get('/membership/razorpay-status').catch(() => ({ data: {} })),
       ]);
+
       setPlans(p.data);
       setMembership(m.data);
       setHistory(h.data);
-      setRzStatus(s.data);
+      try {
+        const s = await api.get('/membership/razorpay-status');
+        console.log("RZ STATUS:", s.data);
+        setRzStatus(s.data);
+      } catch (err) {
+        console.error("Razorpay status error:", err);
+      }
     } catch { toast.error('Failed to load membership data'); }
     finally { setLoading(false); }
   }, []);
