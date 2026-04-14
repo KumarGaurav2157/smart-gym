@@ -5,7 +5,7 @@ import useAuthStore from '../hooks/useAuthStore';
 import toast from 'react-hot-toast';
 
 // ── API client ────────────────────────────────────────────────────────────────
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+const api = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 api.interceptors.request.use(cfg => {
   const token = localStorage.getItem('gym_token');
   if (token) cfg.headers.Authorization = `Bearer ${token}`;
