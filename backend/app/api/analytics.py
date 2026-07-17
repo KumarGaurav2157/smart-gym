@@ -37,8 +37,8 @@ def dashboard_data(db: Session = Depends(get_db), admin: User = Depends(require_
     for i in range(6):
         month_start = (datetime.utcnow().replace(day=1) - timedelta(days=30 * i))
         rev = db.query(func.sum(Payment.amount)).filter(
-            func.year(Payment.created_at) == month_start.year,
-            func.month(Payment.created_at) == month_start.month
+            func.extract("year", Payment.created_at) == month_start.year,
+            func.extract("month",Payment.created_at) == month_start.month
         ).scalar() or 0
         revenue_trend.append({"month": month_start.strftime("%b %Y"), "revenue": round(float(rev), 2)})
 

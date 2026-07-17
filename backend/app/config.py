@@ -4,7 +4,7 @@ from functools import lru_cache
 class Settings(BaseSettings):
     # ── Database ──────────────────────────────────────────────────────────────
     DB_HOST:     str = "localhost"
-    DB_PORT:     int = 3306
+    DB_PORT:     int = 5432
     DB_USER:     str = "gym_user"
     DB_PASSWORD: str = "gym_password"
     DB_NAME:     str = "smart_gym"
@@ -36,7 +36,7 @@ class Settings(BaseSettings):
         super().__init__(**kwargs)
         if not self.DATABASE_URL:
             self.DATABASE_URL = (
-                f"mysql+pymysql://{self.DB_USER}:{self.DB_PASSWORD}"
+                f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASSWORD}"
                 f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
             )
         if not self.MAIL_FROM:
