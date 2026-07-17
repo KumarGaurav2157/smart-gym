@@ -8,7 +8,7 @@ ML Service — wraps all machine learning models:
 """
 import numpy as np
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,timezone
 from typing import List, Dict, Any
 from sklearn.linear_model import LogisticRegression
 from sklearn.cluster import KMeans
@@ -25,7 +25,7 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 # ─── Feature Engineering ─────────────────────────────────────────────────────
 def build_member_features(user, workouts, attendance, payments) -> np.ndarray:
     """Turn raw member data into a feature vector."""
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     thirty_days_ago = now - timedelta(days=30)
 
     recent_workouts = [w for w in workouts if w.created_at and w.created_at >= thirty_days_ago]
